@@ -6,6 +6,8 @@ import Home from "./layouts/Home.jsx";
 import About from "./layouts/About.jsx";
 import Cart from "./layouts/Cart.jsx";
 import Contact from "./layouts/Contact.jsx";
+import Login from "./layouts/Login.jsx";
+import Signup from "./layouts/Signup.jsx";
 import Error from "./layouts/Error.jsx";
 
 const router = createBrowserRouter([
@@ -33,6 +35,14 @@ const router = createBrowserRouter([
       { 
         path: "/contact", 
         element: <Contact /> 
+      },
+      { 
+        path: "/login", 
+        element: <Login /> 
+      },
+      { 
+        path: "/signup", 
+        element: <Signup /> 
       },
     ],
   },
