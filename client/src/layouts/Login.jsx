@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import GoogleLoginButton from "../components/GoogleLoginButton";
 
 function Login() {
   const [formState, setFormState] = useState({ email: "", password: "" });
@@ -36,6 +37,7 @@ function Login() {
             onChange={handleChange}
           />
         </div>
+        <GoogleLoginButton />
       </form>
       <h3>Need to create an account?</h3>
       <Link to="/signup"> Sign Up</Link>

@@ -9,6 +9,10 @@ import Contact from "./layouts/Contact.jsx";
 import Login from "./layouts/Login.jsx";
 import Signup from "./layouts/Signup.jsx";
 import Error from "./layouts/Error.jsx";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+
+// const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+// console.log(clientId);
 
 const router = createBrowserRouter([
   {
@@ -20,29 +24,29 @@ const router = createBrowserRouter([
         index: true,
         element: <Home />,
       },
-      { 
-        path: "/", 
-        element: <Home /> 
+      {
+        path: "/",
+        element: <Home />,
       },
-      { 
-        path: "/about", 
-        element: <About /> 
+      {
+        path: "/about",
+        element: <About />,
       },
-      { 
-        path: "/cart", 
-        element: <Cart /> 
+      {
+        path: "/cart",
+        element: <Cart />,
       },
-      { 
-        path: "/contact", 
-        element: <Contact /> 
+      {
+        path: "/contact",
+        element: <Contact />,
       },
-      { 
-        path: "/login", 
-        element: <Login /> 
+      {
+        path: "/login",
+        element: <Login />,
       },
-      { 
-        path: "/signup", 
-        element: <Signup /> 
+      {
+        path: "/signup",
+        element: <Signup />,
       },
     ],
   },
@@ -50,6 +54,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <GoogleOAuthProvider clientId="">
+      <RouterProvider router={router} />
+    </GoogleOAuthProvider>
   </React.StrictMode>
 );
