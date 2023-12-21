@@ -14,7 +14,6 @@ const typeDefs = `
     _id: ID
     name: String
     description: String
-    price: String
     image: String
     quantity: Int
     price: Float
@@ -35,9 +34,13 @@ const typeDefs = `
     user: User
   }
 
-  type Query {}
+  type Query {
+    user: User
+  }
 
-  type Mutation {}
+  type Mutation {
+    login(email: String!, password: String!): Auth
+  }
 `;
 
 module.exports = typeDefs;
