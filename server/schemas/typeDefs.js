@@ -35,11 +35,15 @@ const typeDefs = `
   }
 
   type Query {
+    category: Category
+    order: [Order]
+    product: Product
     user: User
   }
 
   type Mutation {
     login(email: String!, password: String!): Auth
+    addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
   }
 `;
 

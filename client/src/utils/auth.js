@@ -1,8 +1,8 @@
-import decode from "jwt-decode";
+import * as decode from "jwt-decode";
 
 class Auth {
   getProfile() {
-    return decode(this.getToken());
+    return decode.default(this.getToken());
   }
 
   loggedIn() {
@@ -12,7 +12,7 @@ class Auth {
 
   isTokenExpired(token) {
     try {
-      const decoded = decode(token);
+      const decoded = decode.default(token);
       if (decoded.exp < Date.now() / 1000) {
         return true;
       } else {
@@ -24,17 +24,38 @@ class Auth {
   }
 
   getToken() {
-    return localStorage.getItem("id_token");
+    return this.getCookie("id_token");
   }
 
   login(idToken) {
-    localStorage.setItem("id_token", idToken);
+    this.setCookie("id_token", idToken);
     window.location.assign("/");
   }
 
   logout() {
-    localStorage.removeItem("id_token");
+    this.deleteCookie("id_token");
     window.location.assign("/");
+  }
+
+  // Helper functions for working with cookies
+  setCookie(name, value, days = 1) {
+    const expires = new Date(
+      Date.now() + days * 24 * 60 * 60 * 1000
+    ).toUTCString();
+    document.cookie = `${name}=${value}; expires=${expires}; path=/`;
+  }
+
+  getCookie(name) {
+    const cookieValue = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith(`${name}=`))
+      ?.split("=")[1];
+
+    return cookieValue ? decodeURIComponent(cookieValue) : null;
+  }
+
+  deleteCookie(name) {
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
   }
 }
 
