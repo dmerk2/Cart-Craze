@@ -20,7 +20,7 @@ function Header() {
           Contact
         </Link>
         {Auth.loggedIn() ? (
-          <Link onClick={Auth.logout} className="item">Log Out</Link>
+          <Link onClick={() => Auth.logout()} className="item">Log Out</Link>
         ) : (
           <Link to="/login" className="item">Log In</Link>
         )}

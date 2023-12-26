@@ -24,13 +24,13 @@ function Footer() {
                 Contact Us
               </List.Item>
               {Auth.loggedIn() ? (
-                <List.Item as={Link} to="/login" className="item">
-                  Login
-                </List.Item>
+                <Link onClick={() => Auth.logout()} className="item">
+                  Log Out
+                </Link>
               ) : (
-                <List.Item onClick={Auth.logout} className="item">
-                  Login
-                </List.Item>
+                <Link to="/login" className="item">
+                  Log In
+                </Link>
               )}
             </List>
           </Grid.Column>
