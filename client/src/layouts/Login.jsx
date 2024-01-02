@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { LOGIN } from "../utils/mutations";
 import Auth from "../utils/auth";
+import { Form, Input, Button, Message, Container } from "semantic-ui-react";
 // import GoogleLoginButton from "../components/GoogleLoginButton";
 
 function Login() {
@@ -29,43 +30,44 @@ function Login() {
       [name]: value,
     });
   };
+
   return (
-    <div>
-      <h2>Login</h2>
-      {error ? (
-        <div>
-          <p>Please enter the correct credentials</p>
-        </div>
-      ) : null}
-      <form onSubmit={handleFormSubmit}>
-        <div>
-          <label htmlFor="email">Email address:</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="johndoe@gmail.com"
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="********"
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <button type="submit">Submit</button>
+    <Container text>
+      <div>
+        <h2>Login</h2>
+        {error && (
+          <Message negative>
+            <Message.Header>
+              Please enter the correct credentials
+            </Message.Header>
+          </Message>
+        )}
+        <Form onSubmit={handleFormSubmit}>
+          <Form.Field>
+            <label>Email address:</label>
+            <Input
+              type="email"
+              name="email"
+              placeholder="johndoe@gmail.com"
+              onChange={handleChange}
+            />
+          </Form.Field>
+          <Form.Field>
+            <label>Password:</label>
+            <Input
+              type="password"
+              name="password"
+              placeholder="********"
+              onChange={handleChange}
+            />
+          </Form.Field>
+          <Button type="submit">Submit</Button>
           {/* <GoogleLoginButton /> */}
-        </div>
-      </form>
-      <h3>Need to create an account?</h3>
-      <Link to="/signup"> Sign Up</Link>
-    </div>
+        </Form>
+        <h3>Need to create an account?</h3>
+        <Link to="/signup"> Sign Up</Link>
+      </div>
+    </Container>
   );
 }
 

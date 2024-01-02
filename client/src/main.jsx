@@ -10,6 +10,8 @@ import Login from "./layouts/Login.jsx";
 import Signup from "./layouts/Signup.jsx";
 import Error from "./layouts/Error.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import Product from "./layouts/Product.jsx";
+import Category from "./layouts/Category.jsx";
 
 // const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 // console.log(clientId);
@@ -47,6 +49,14 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <Signup />,
+      },
+      {
+        path: "/product/:productId",
+        element: <Product />,
+      },
+      {
+        path: "/category/:categoryId",
+        element: <Category />,
       },
     ],
   },

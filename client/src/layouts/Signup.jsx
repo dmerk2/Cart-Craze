@@ -3,9 +3,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { SIGN_UP } from "../utils/mutations";
 import Auth from "../utils/auth";
+import { Form, Input, Button, Message, Container } from "semantic-ui-react";
 // import GoogleLoginButton from "../components/GoogleLoginButton";
 
-function Login() {
+function SignUp() {
   const [formState, setFormState] = useState({
     firstName: "",
     lastName: "",
@@ -39,64 +40,61 @@ function Login() {
       [name]: value,
     });
   };
+
   return (
-    <div>
-      <h2>Sign Up</h2>
-      {error ? (
-        <div>
-          <p>Error signing up!</p>
-        </div>
-      ) : null}
-      <form onSubmit={handleFormSubmit}>
-        <div>
-          <label htmlFor="firstName">First Name:</label>
-          <input
-            type="text"
-            name="firstName"
-            id="firstName"
-            placeholder="John"
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="lastName">Last Name:</label>
-          <input
-            type="text"
-            name="lastName"
-            id="lastName"
-            placeholder="Smith"
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="email">Email address:</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="johndoe@gmail.com"
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="********"
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <button type="submit">Submit</button>
+    <Container text>
+      <div>
+        <h2>Sign Up</h2>
+        {error && (
+          <Message negative>
+            <Message.Header>Error signing up!</Message.Header>
+          </Message>
+        )}
+        <Form onSubmit={handleFormSubmit}>
+          <Form.Field>
+            <label>First Name:</label>
+            <Input
+              type="text"
+              name="firstName"
+              placeholder="John"
+              onChange={handleChange}
+            />
+          </Form.Field>
+          <Form.Field>
+            <label>Last Name:</label>
+            <Input
+              type="text"
+              name="lastName"
+              placeholder="Smith"
+              onChange={handleChange}
+            />
+          </Form.Field>
+          <Form.Field>
+            <label>Email address:</label>
+            <Input
+              type="email"
+              name="email"
+              placeholder="johndoe@gmail.com"
+              onChange={handleChange}
+            />
+          </Form.Field>
+          <Form.Field>
+            <label>Password:</label>
+            <Input
+              type="password"
+              name="password"
+              placeholder="********"
+              onChange={handleChange}
+            />
+          </Form.Field>
+          <Button type="submit">Submit</Button>
           {/* <GoogleLoginButton /> */}
-        </div>
-      </form>
-      <h3>Already have an account?</h3>
-      <Link to="/login">Log In</Link>
-    </div>
+        </Form>
+        <h3>Already have an account?</h3>
+        <Link to="/login">Log In</Link>
+      </div>
+    </Container>
   );
 }
 
-export default Login;
+export default SignUp;
