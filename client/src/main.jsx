@@ -12,6 +12,8 @@ import Error from "./layouts/Error.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import Product from "./layouts/Product.jsx";
 import Category from "./layouts/Category.jsx";
+import { Provider } from "react-redux";
+import store from "./utils/store.js";
 
 // const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 // console.log(clientId);
@@ -64,8 +66,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <GoogleOAuthProvider clientId="">
-      <RouterProvider router={router} />
-    </GoogleOAuthProvider>
+    <Provider store={store}>
+      <GoogleOAuthProvider clientId="">
+        <RouterProvider router={router} />
+      </GoogleOAuthProvider>
+    </Provider>
   </React.StrictMode>
 );
