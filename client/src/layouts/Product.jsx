@@ -16,7 +16,6 @@ function Product() {
   const dispatch = useDispatch();
   if (loading) return <div>Loading...</div>
   const product = data?.product;
-  console.log(product)
 
   const handleAddToCart = (product) => {
     console.log("Product added:", product);

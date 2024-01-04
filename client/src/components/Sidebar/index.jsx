@@ -42,17 +42,27 @@ function Sidebar() {
   return (
     <div>
       <div>
-      <Dropdown
-            placeholder="Search products..."
-            fluid
-            search
-            selection
-            options={productOptions}
-            onChange={(event, data) =>
-              handleProductClick(data.value)
-            }
-            onSearchChange={handleProductChange}
-          />
+        <Dropdown
+          placeholder="Search products..."
+          fluid
+          search
+          selection
+          options={productOptions}
+          onSearchChange={handleProductChange}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Custom rendering of dropdown items with onClick event */}
+          <Dropdown.Menu>
+            {productOptions.map((option) => (
+              <Dropdown.Item
+                key={option.key}
+                onClick={() => handleProductClick(option.value)}
+              >
+                {option.text}
+              </Dropdown.Item>
+            ))}
+          </Dropdown.Menu>
+        </Dropdown>
       </div>
 
       <div>Pick a Category:</div>

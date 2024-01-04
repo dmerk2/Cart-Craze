@@ -7,7 +7,8 @@ import { addProduct } from "../../utils/productSlice";
 import auth from "../../utils/auth";
 import { useNavigate } from "react-router-dom";
 
-function Product() {
+// eslint-disable-next-line react/prop-types
+function Product({ limit }) {
   const isLoggedIn = auth.loggedIn();
   const navigate = useNavigate();
   const { categoryId } = useParams();
@@ -25,7 +26,8 @@ function Product() {
   const categoryName = category || "Unknown Category";
 
   const products = data?.products || [];
-  console.log(products)
+  // Use the slice method to limit the number of products
+  const limitedProducts = limit ? products.slice(0, limit) : products;
   const handleAddToCart = (product) => {
     console.log("Product added:", product);
     dispatch(
@@ -46,14 +48,14 @@ function Product() {
     <>
       {location.pathname.includes("/category/") && <h2>{categoryName}</h2>}
       <Card.Group>
-        {products.map((product) => (
+        {limitedProducts.map((product) => (
           <Card key={product._id}>
             <Image src={product.image} alt={product.image} wrapped ui={false} />
             <Card.Content>
               <Card.Header>{product.name}</Card.Header>
               <Card.Description>{product.description}</Card.Description>
               <Card.Meta>Price: ${product.price}</Card.Meta>
-              <Button onClick={() => handleProductClick(product)}>
+              <Button primary onClick={() => handleProductClick(product)}>
                 View More
               </Button>
               {isLoggedIn ? (
