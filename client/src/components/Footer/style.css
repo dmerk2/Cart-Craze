@@ -1,6 +1,6 @@
 .footer {
   background: var(--background);
   padding: 2rem 0;
-  position: fixed;
-  bottom: 0;
+  /* position: fixed;
+  bottom: 0; */
 }

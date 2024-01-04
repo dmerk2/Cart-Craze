@@ -1,5 +1,6 @@
 import { Container, Grid, List, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import Auth from "../../utils/auth";
 import "semantic-ui-css/semantic.min.css";
 import "./style.css";
 
@@ -22,9 +23,15 @@ function Footer() {
               <List.Item as={Link} to="/contact" className="item">
                 Contact Us
               </List.Item>
-              <List.Item as={Link} to="/login" className="item">
-                Login
-              </List.Item>
+              {Auth.loggedIn() ? (
+                <Link onClick={() => Auth.logout()} className="item">
+                  Log Out
+                </Link>
+              ) : (
+                <Link to="/login" className="item">
+                  Log In
+                </Link>
+              )}
             </List>
           </Grid.Column>
           <Grid.Column width={6} textAlign="center">
