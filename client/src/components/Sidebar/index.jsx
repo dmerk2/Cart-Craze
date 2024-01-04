@@ -19,10 +19,6 @@ function Sidebar() {
   const categories = allCategories?.categories || [];
   const products = allProducts?.products || [];
 
-  const handleCategoryChange = (categoryId) => {
-    navigate(`/category/${categoryId}`);
-  };
-
   const handleProductChange = (event, data) => {
     const value = data.searchQuery;
     setSearchTerm(value || "");
@@ -46,21 +42,23 @@ function Sidebar() {
   return (
     <div>
       <div>
-        <Dropdown
-          placeholder="Search products..."
-          fluid
-          search
-          selection
-          options={productOptions}
-          onChange={handleProductClick}
-          onSearchChange={handleProductChange}
-        />
+      <Dropdown
+            placeholder="Search products..."
+            fluid
+            search
+            selection
+            options={productOptions}
+            onChange={(event, data) =>
+              handleProductClick(data.value)
+            }
+            onSearchChange={handleProductChange}
+          />
       </div>
 
       <div>Pick a Category:</div>
       {categories.map((item) => (
         <div key={item._id}>
-          <p onClick={() => handleCategoryChange(item._id)}>{item.name}</p>
+          <a href={`/category/${item._id}`}>{item.name}</a>
         </div>
       ))}
     </div>

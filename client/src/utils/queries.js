@@ -56,6 +56,24 @@ export const QUERY_PRODUCTS = gql`
       image
       category {
         _id
+        name
+      }
+    }
+  }
+`;
+
+export const QUERY_INDIVIDUAL_PRODUCT = gql`
+  query product($id: ID!) {
+    product(_id: $id) {
+      _id
+      name
+      price
+      quantity
+      image
+      description
+      category {
+        _id
+        name
       }
     }
   }

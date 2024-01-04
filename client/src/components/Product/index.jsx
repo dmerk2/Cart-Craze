@@ -5,27 +5,29 @@ import { Card, Image, Button } from "semantic-ui-react";
 import { QUERY_PRODUCTS } from "../../utils/queries";
 import { addProduct } from "../../utils/productSlice";
 import auth from "../../utils/auth";
+import { useNavigate } from "react-router-dom";
 
 function Product() {
   const isLoggedIn = auth.loggedIn();
+  const navigate = useNavigate();
   const { categoryId } = useParams();
   const { loading, data } = useQuery(QUERY_PRODUCTS, {
-    variables: { categoryId },
+    variables: { category: categoryId },
   });
-  console.log(data);
 
-  // Get the dispatch function from Redux
   const dispatch = useDispatch();
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  const products = data?.products || [];
+  const category = data?.products[0]?.category.name || {};
+  const categoryName = category || "Unknown Category";
 
+  const products = data?.products || [];
+  console.log(products)
   const handleAddToCart = (product) => {
     console.log("Product added:", product);
-    // Dispatch the addProduct action with the product details
     dispatch(
       addProduct({
         id: product._id,
@@ -36,25 +38,34 @@ function Product() {
     );
   };
 
+  const handleProductClick = (productId) => {
+    navigate(`/product/${productId._id}`);
+  };
+
   return (
-    <Card.Group>
-      {products.map((product) => (
-        <Card key={product._id}>
-          <Image src={product.image} alt={product.image} wrapped ui={false} />
-          <Card.Content>
-            <Card.Header>{product.name}</Card.Header>
-            <Card.Description>{product.description}</Card.Description>
-            <Card.Meta>Price: ${product.price}</Card.Meta>
-            <Card.Meta>Quantity: {product.quantity}</Card.Meta>
-            {isLoggedIn ? (
-              <Button onClick={() => handleAddToCart(product)}>
-                Add To Cart
+    <>
+      {location.pathname.includes("/category/") && <h2>{categoryName}</h2>}
+      <Card.Group>
+        {products.map((product) => (
+          <Card key={product._id}>
+            <Image src={product.image} alt={product.image} wrapped ui={false} />
+            <Card.Content>
+              <Card.Header>{product.name}</Card.Header>
+              <Card.Description>{product.description}</Card.Description>
+              <Card.Meta>Price: ${product.price}</Card.Meta>
+              <Button onClick={() => handleProductClick(product)}>
+                View More
               </Button>
-            ) : null}
-          </Card.Content>
-        </Card>
-      ))}
-    </Card.Group>
+              {isLoggedIn ? (
+                <Button onClick={() => handleAddToCart(product)}>
+                  Add To Cart
+                </Button>
+              ) : null}
+            </Card.Content>
+          </Card>
+        ))}
+      </Card.Group>
+    </>
   );
 }
 
