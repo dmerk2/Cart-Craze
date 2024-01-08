@@ -10,7 +10,7 @@ export const productSlice = createSlice({
     addProduct: (state, action) => {
       console.log("Current State before adding product:", state);
 
-      const { id, name, price, quantity } = action.payload;
+      const { id, name, price, image, description, quantity } = action.payload;
       const existingProduct = state.cart.find((product) => product.id === id);
 
       if (existingProduct) {
@@ -20,6 +20,8 @@ export const productSlice = createSlice({
           id,
           name,
           price,
+          image,
+          description,
           quantity: quantity || 1,
         });
       }

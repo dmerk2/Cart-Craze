@@ -11,7 +11,7 @@ function Header() {
   };
 
   return (
-    <header className="ui secondary pointing menu header">
+    <header className="ui pointing menu header">
       <Link to="/" className="item">
         Home
       </Link>

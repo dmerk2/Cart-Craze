@@ -1,20 +1,25 @@
-import { useQuery } from "@apollo/client";
-import { QUERY_USER } from "../utils/queries";
-import { useParams } from "react-router-dom";
+
+import { useSelector } from "react-redux";
 
 function Cart() {
 
-  const { userId } = useParams();
-  const { loading, data, error } = useQuery(QUERY_USER, {
-    variables: { id: userId },
-  });
-  if (loading) return <div>Loading...</div>;
-  if (error) {
-    console.error("Error fetching data:", error);
-    return <div>Error fetching data</div>;
-  }
-  console.log(data);
-  return <div>Cart</div>;
+  const cart = useSelector((state) => state.product.cart);
+
+  console.log(cart);
+  return (
+    <div>
+      <h2>Your Cart</h2>
+      <ul>
+        {cart.map((item) => (
+          <li key={item.id}>
+            <img src={item.image} alt={item.image} />
+            {item.name} - Quantity: {item.quantity} - Price: ${item.price * item.quantity}
+            Description: {item.description}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
 export default Cart;

@@ -34,14 +34,12 @@ class Auth {
 
   logout() {
     try {
-      console.log(this, "THIS")
       this.deleteCookie("id_token");
       window.location.assign("/");
     } catch (error) {
-      console.error('Error during logout:', error);
+      console.error("Error during logout:", error);
     }
   }
-  
 
   // Helper functions for working with cookies
   setCookie(name, value, days = 1) {
@@ -63,14 +61,11 @@ class Auth {
   deleteCookie(name) {
     try {
       const expires = new Date(Date.now() - 86400000).toUTCString();
-      console.log('Deleting cookie:', name);
-      console.log('Expires:', expires);
       document.cookie = `${name}=; expires=${expires}; path=/; secure; SameSite=Strict`;
     } catch (error) {
-      console.error('Error deleting cookie:', error);
+      console.error("Error deleting cookie:", error);
     }
   }
-  
 }
 
 export default new Auth();
