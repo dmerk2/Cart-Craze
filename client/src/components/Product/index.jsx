@@ -29,11 +29,12 @@ function Product({ limit }) {
   // Use the slice method to limit the number of products
   const limitedProducts = limit ? products.slice(0, limit) : products;
   const handleAddToCart = (product) => {
-    console.log("Product added:", product);
     dispatch(
       addProduct({
         id: product._id,
         name: product.name,
+        description: product.description,
+        image: product.image,
         price: product.price,
         quantity: 1,
       })

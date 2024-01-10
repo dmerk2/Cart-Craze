@@ -1,10 +1,11 @@
 import Product from "../components/Product/index";
+import { Container } from "semantic-ui-react";
 
 function Category() {
   return (
-    <div>
+    <Container>
       <Product />
-    </div>
+    </Container>
   );
 }
 
