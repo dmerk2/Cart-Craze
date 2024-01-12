@@ -1,6 +1,8 @@
+import { Container } from "semantic-ui-react";
+
 function About() {
   return (
-    <div>
+    <Container>
       <h2>About Cart Craze</h2>
       <p>
         Welcome to Cart Craze, your one-stop destination for all your shopping needs!
@@ -15,12 +17,12 @@ function About() {
       <p>
         Whether you are looking for the latest fashion trends, technology gadgets, home decor,
         or anything in between, Cart Craze has you covered. Our team is passionate about
-        curating a diverse selection of products to suit every taste and style.
+        curating a Containererse selection of products to suit every taste and style.
       </p>
       <p>
         Thank you for choosing Cart Craze. Happy shopping!
       </p>
-    </div>
+    </Container>
   );
 }
 
