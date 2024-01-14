@@ -22,6 +22,27 @@ body {
   margin: 1rem;
 }
 
-h2 {
+h2, h3 {
   text-align: center;
+}
+
+.ui.cards {
+  margin: 1rem !important;
+}
+
+.ui.container.cartContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin: 1rem
+}
+
+.ui.container.checkoutContainer {
+  margin: 2.5rem;
+  padding: 15px;
+  background: #f0f0f0;
+}
+
+.ui.button.removeItem {
+  background: #c51919bd;
 }

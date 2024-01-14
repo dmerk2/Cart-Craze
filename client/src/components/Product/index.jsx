@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { Card, Image, Button } from "semantic-ui-react";
+import { Card, Image, Button, Grid } from "semantic-ui-react";
 import { QUERY_PRODUCTS } from "../../utils/queries";
 import { addProduct } from "../../utils/productSlice";
 import auth from "../../utils/auth";
@@ -29,6 +29,7 @@ function Product({ limit }) {
   // Use the slice method to limit the number of products
   const limitedProducts = limit ? products.slice(0, limit) : products;
   const handleAddToCart = (product) => {
+    console.log("Dispatching addProduct")
     dispatch(
       addProduct({
         id: product._id,
@@ -56,14 +57,23 @@ function Product({ limit }) {
               <Card.Header>{product.name}</Card.Header>
               <Card.Description>{product.description}</Card.Description>
               <Card.Meta>Price: ${product.price}</Card.Meta>
-              <Button primary onClick={() => handleProductClick(product)}>
-                View More
-              </Button>
-              {isLoggedIn ? (
-                <Button onClick={() => handleAddToCart(product)}>
-                  Add To Cart
-                </Button>
-              ) : null}
+            </Card.Content>
+
+            <Card.Content extra>
+              <Grid centered columns={2}>
+                <Grid.Column textAlign="center">
+                  <Button primary onClick={() => handleProductClick(product)}>
+                    View More
+                  </Button>
+                </Grid.Column>
+                <Grid.Column textAlign="center">
+                  {isLoggedIn && (
+                    <Button secondary onClick={() => handleAddToCart(product)}>
+                      Add To Cart
+                    </Button>
+                  )}
+                </Grid.Column>
+              </Grid>
             </Card.Content>
           </Card>
         ))}

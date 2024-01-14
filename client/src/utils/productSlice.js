@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-const storedData = JSON.parse(localStorage.getItem("cart-craze"))
+
+const storedData = JSON.parse(localStorage.getItem("cart-craze"));
 
 const productSlice = createSlice({
   name: "product",
@@ -10,15 +11,12 @@ const productSlice = createSlice({
   reducers: {
     addProduct: (state, action) => {
       const { id, name, price, image, description, quantity } = action.payload;
-      const existingProductIndex = state.cart.findIndex(
-        (product) => product.id === id
-      );
+      const existingProduct = state.cart.find((product) => product.id === id);
+      alert(`Added ${name} to cart`)
 
-      if (existingProductIndex !== -1) {
-        // If the product exists, update the quantity
-        state.cart[existingProductIndex].quantity += quantity || 1;
+      if (existingProduct) {
+        existingProduct.quantity += quantity || 1;
       } else {
-        // If the product doesn't exist, add it to the cart
         state.cart.push({
           id,
           name,
@@ -30,8 +28,7 @@ const productSlice = createSlice({
       }
     },
     updateCartFromLocalStorage: (state, action) => {
-      const newCart = action.payload || [];
-      state.cart = [...newCart]
+      state.cart = action.payload || [];
     },
     removeItem: (state, action) => {
       const itemId = action.payload;

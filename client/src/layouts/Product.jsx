@@ -21,7 +21,7 @@ function Product() {
       console.error("Product data not available");
       return;
     }
-
+    console.log("Dispatching addProduct")
     dispatch(
       addProduct({
         id: product._id,
@@ -58,10 +58,10 @@ function Product() {
                 <Card.Description>{product.description}</Card.Description>
                 <Card.Meta>Price: ${product.price}</Card.Meta>
                 <Card.Meta>Quantity: {product.quantity}</Card.Meta>
-                {isLoggedIn && (
-                  <Button onClick={handleAddToCart}>Add To Cart</Button>
-                )}
               </Card.Content>
+                {isLoggedIn && (
+                  <Button secondary onClick={handleAddToCart}>Add To Cart</Button>
+                )}
             </Card>
           </Card.Group>
         )}

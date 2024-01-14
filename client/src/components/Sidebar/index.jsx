@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import { QUERY_CATEGORIES, QUERY_ALL_PRODUCTS } from "../../utils/queries";
 import { useNavigate } from "react-router-dom";
 import { Dropdown } from "semantic-ui-react";
+import "./style.css";
 
 function Sidebar() {
   const navigate = useNavigate();
@@ -46,12 +47,10 @@ function Sidebar() {
           placeholder="Search products..."
           fluid
           search
-          selection
-          options={productOptions}
+          className="sideBarDropdown"
           onSearchChange={handleProductChange}
           onClick={(e) => e.stopPropagation()}
         >
-          {/* Custom rendering of dropdown items with onClick event */}
           <Dropdown.Menu>
             {productOptions.map((option) => (
               <Dropdown.Item

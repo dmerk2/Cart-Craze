@@ -1,0 +1,10 @@
+.sideBarDropdown {
+  border: 1px solid black;
+  border-radius: 5px;
+  min-width: 200px;
+  padding: 5px;
+}
+
+.dropDownMenu {
+  border-radius: 5px;
+}
