@@ -30,12 +30,15 @@ const productSlice = createSlice({
       }
     },
     updateCartFromLocalStorage: (state, action) => {
-      if (action.payload) {
-        state.cart = action.payload;
-      }
+      const newCart = action.payload || [];
+      state.cart = [...newCart]
+    },
+    removeItem: (state, action) => {
+      const itemId = action.payload;
+      state.cart = state.cart.filter((item) => item.id !== itemId);
     },
   },
 });
 
-export const { addProduct, updateCartFromLocalStorage } = productSlice.actions;
+export const { addProduct, updateCartFromLocalStorage, removeItem } = productSlice.actions;
 export default productSlice.reducer;

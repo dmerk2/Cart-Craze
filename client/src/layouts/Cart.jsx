@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Card, Image, Button, Container } from "semantic-ui-react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateCartFromLocalStorage } from "../utils/productSlice";
+import { updateCartFromLocalStorage, removeItem } from "../utils/productSlice";
 
 function Cart() {
   const cart = useSelector((state) => state.product.cart) || [];
@@ -13,6 +13,10 @@ function Cart() {
 
   const tax = cart.reduce((total, item) => total + item.price * 0.07, 0);
   const totalWithTax = itemTotal + tax;
+
+  const handleRemoveItem = (itemId) => {
+    dispatch(removeItem(itemId))
+  }
 
   useEffect(() => {
     // Get cart data from localStorage when the component mounts
@@ -49,6 +53,7 @@ function Cart() {
                 <Card.Meta>Price: ${item.price}</Card.Meta>
                 <Card.Meta>Quantity: {item.quantity}</Card.Meta>
               </Card.Content>
+              <Button onClick={() => handleRemoveItem(item.id)}>Remove</Button>
             </Card>
           </Card.Group>
         ))}
