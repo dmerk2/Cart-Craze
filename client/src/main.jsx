@@ -9,6 +9,7 @@ import Contact from "./layouts/Contact.jsx";
 import Login from "./layouts/Login.jsx";
 import Signup from "./layouts/Signup.jsx";
 import Error from "./layouts/Error.jsx";
+import Order from "./layouts/Order.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import Product from "./layouts/Product.jsx";
 import Category from "./layouts/Category.jsx";
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact />,
+      },
+      {
+        path: "/orders",
+        element: <Order />,
       },
       {
         path: "/login",

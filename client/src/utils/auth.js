@@ -1,5 +1,4 @@
 import * as decode from "jwt-decode";
-
 class Auth {
   getProfile() {
     return decode.default(this.getToken());

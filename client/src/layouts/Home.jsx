@@ -23,9 +23,15 @@ function Home() {
           <Segment>
             <h2>Products</h2>
             <Product limit={itemsToShow} />
-            <Button onClick={handleViewMore} primary style={{ marginTop: "10px" }}>
-              View More
-            </Button>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <Button
+                onClick={handleViewMore}
+                primary
+                style={{ marginTop: "10px", width: "200px" }}
+              >
+                View More
+              </Button>
+            </div>
           </Segment>
         </Grid.Column>
       </Grid.Row>

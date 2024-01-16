@@ -5,11 +5,6 @@ import "semantic-ui-css/semantic.min.css";
 import "./style.css";
 
 function Header() {
-  const handleCheckout = () => {
-    // Add logic for handling checkout, e.g., redirect to a checkout page
-    console.log("Checkout clicked!");
-  };
-
   return (
     <header className="ui pointing menu header">
       <Link to="/" className="item">
@@ -30,7 +25,9 @@ function Header() {
                 <Dropdown.Item as={Link} to="/cart">
                   View Cart
                 </Dropdown.Item>
-                <Dropdown.Item onClick={handleCheckout}>Checkout</Dropdown.Item>
+                <Dropdown.Item as={Link} to="/orders">
+                  Orders
+                </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
             <Link onClick={() => Auth.logout()} className="item">
