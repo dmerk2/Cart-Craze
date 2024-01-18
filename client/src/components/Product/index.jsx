@@ -59,14 +59,14 @@ function Product({ limit }) {
               <Card.Meta>Price: ${product.price}</Card.Meta>
             </Card.Content>
             <Card.Content extra>
-              <Grid centered columns={2}>
-                <Grid.Column textAlign="center">
-                  <Button primary onClick={() => handleProductClick(product)}>
-                    View More
-                  </Button>
-                </Grid.Column>
-                <Grid.Column textAlign="center">
-                  {isLoggedIn && (
+              {isLoggedIn ? (
+                <Grid centered columns={2}>
+                  <Grid.Column textAlign="center">
+                    <Button primary onClick={() => handleProductClick(product)}>
+                      View More
+                    </Button>
+                  </Grid.Column>
+                  <Grid.Column textAlign="center">
                     <Button
                       secondary
                       style={{ width: "110px" }}
@@ -74,9 +74,15 @@ function Product({ limit }) {
                     >
                       <TiShoppingCart />
                     </Button>
-                  )}
-                </Grid.Column>
-              </Grid>
+                  </Grid.Column>
+                </Grid>
+              ) : (
+                <div style={{ textAlign: "center" }}>
+                  <Button primary onClick={() => handleProductClick(product)}>
+                    View More
+                  </Button>
+                </div>
+              )}
             </Card.Content>
           </Card>
         ))}

@@ -78,3 +78,11 @@ export const QUERY_INDIVIDUAL_PRODUCT = gql`
     }
   }
 `;
+
+export const QUERY_CHECKOUT = gql`
+  query getCheckout($products: [ID]!) {
+    checkout(products: $products) {
+      session
+    }
+  }
+`;

@@ -2,8 +2,14 @@ import { useEffect } from "react";
 import { Card, Image, Button, Container, Grid } from "semantic-ui-react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateCartFromLocalStorage, removeItem } from "../utils/productSlice";
+import { loadStripe } from "@stripe/stripe-js";
+import { useMutation } from "@apollo/client";
+import { ADD_ORDER } from "../utils/mutations"; // Replace with the correct path
+
+const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
 
 function Cart() {
+  const [addOrder, { data }] = useMutation(ADD_ORDER);
   const cart = useSelector((state) => state.product.cart) || [];
   const dispatch = useDispatch();
   const itemTotal = cart.reduce(
@@ -18,6 +24,23 @@ function Cart() {
   };
 
   useEffect(() => {
+    // Handle redirection after successful checkout
+    if (data && data.addOrder) {
+      // Assuming session ID is inside the first product in the products array
+      const sessionId = data.addOrder.products[0].session;
+  
+      if (sessionId) {
+        stripePromise.then((stripe) => {
+          stripe.redirectToCheckout({ sessionId });
+        });
+      } else {
+        console.error("SessionId not found in addOrder response:", data.addOrder);
+      }
+    }
+  }, [data]);
+  
+  
+  useEffect(() => {
     try {
       const storedData = JSON.parse(localStorage.getItem("cart-craze"));
       if (storedData) {
@@ -31,6 +54,37 @@ function Cart() {
   useEffect(() => {
     localStorage.setItem("cart-craze", JSON.stringify(cart));
   }, [cart]);
+
+  async function submitCheckout() {
+    const productIds = [];
+  
+    cart.forEach((item) => {
+      for (let i = 0; i < item.quantity; i++) {
+        productIds.push(item.id);
+      }
+    });
+  
+    console.log("Product Ids in submitCheckout function:", productIds);
+  
+    try {
+      const { data } = await addOrder({
+        variables: { products: productIds },
+      });
+  
+      if (data && data.addOrder) {
+        // Handle successful order creation if needed
+  
+        // Redirect to Stripe Checkout after order creation
+        const sessionId = data.addOrder.session;
+        stripePromise.then((stripe) => {
+          stripe.redirectToCheckout({ sessionId });
+        });
+      }
+    } catch (error) {
+      console.error("Error creating order:", error);
+    }
+  }
+  
 
   return (
     <>
@@ -84,7 +138,7 @@ function Cart() {
                   Total: <b>${totalWithTax.toFixed(2)}</b>
                 </p>
               </Card.Content>
-              <Button>Checkout</Button>
+              <Button onClick={submitCheckout}>Checkout</Button>
             </Container>
           </Grid.Column>
         </Grid.Row>
