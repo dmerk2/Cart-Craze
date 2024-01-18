@@ -4,6 +4,7 @@ import { QUERY_INDIVIDUAL_PRODUCT } from "../utils/queries";
 import { useDispatch } from "react-redux";
 import { Card, Image, Button, Container } from "semantic-ui-react";
 import { addProduct } from "../utils/productSlice";
+import { TiShoppingCart } from "react-icons/ti";
 import auth from "../utils/auth";
 
 function Product() {
@@ -21,7 +22,7 @@ function Product() {
       console.error("Product data not available");
       return;
     }
-    console.log("Dispatching addProduct")
+    console.log("Dispatching addProduct");
     dispatch(
       addProduct({
         id: product._id,
@@ -59,9 +60,11 @@ function Product() {
                 <Card.Meta>Price: ${product.price}</Card.Meta>
                 <Card.Meta>Quantity: {product.quantity}</Card.Meta>
               </Card.Content>
-                {isLoggedIn && (
-                  <Button secondary onClick={handleAddToCart}>Add To Cart</Button>
-                )}
+              {isLoggedIn && (
+                <Button secondary onClick={handleAddToCart}>
+                  <TiShoppingCart />
+                </Button>
+              )}
             </Card>
           </Card.Group>
         )}

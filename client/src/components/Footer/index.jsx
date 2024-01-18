@@ -20,9 +20,6 @@ function Footer() {
               <List.Item as={Link} to="/cart" className="item">
                 Cart
               </List.Item>
-              <List.Item as={Link} to="/contact" className="item">
-                Contact Us
-              </List.Item>
               {Auth.loggedIn() ? (
                 <Link onClick={() => Auth.logout()} className="item">
                   Log Out

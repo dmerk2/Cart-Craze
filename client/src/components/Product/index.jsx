@@ -6,6 +6,7 @@ import { QUERY_PRODUCTS } from "../../utils/queries";
 import { addProduct } from "../../utils/productSlice";
 import auth from "../../utils/auth";
 import { useNavigate } from "react-router-dom";
+import { TiShoppingCart } from "react-icons/ti";
 
 // eslint-disable-next-line react/prop-types
 function Product({ limit }) {
@@ -29,7 +30,6 @@ function Product({ limit }) {
   // Use the slice method to limit the number of products
   const limitedProducts = limit ? products.slice(0, limit) : products;
   const handleAddToCart = (product) => {
-    console.log("Dispatching addProduct")
     dispatch(
       addProduct({
         id: product._id,
@@ -58,7 +58,6 @@ function Product({ limit }) {
               <Card.Description>{product.description}</Card.Description>
               <Card.Meta>Price: ${product.price}</Card.Meta>
             </Card.Content>
-
             <Card.Content extra>
               <Grid centered columns={2}>
                 <Grid.Column textAlign="center">
@@ -68,8 +67,12 @@ function Product({ limit }) {
                 </Grid.Column>
                 <Grid.Column textAlign="center">
                   {isLoggedIn && (
-                    <Button secondary onClick={() => handleAddToCart(product)}>
-                      Add To Cart
+                    <Button
+                      secondary
+                      style={{ width: "110px" }}
+                      onClick={() => handleAddToCart(product)}
+                    >
+                      <TiShoppingCart />
                     </Button>
                   )}
                 </Grid.Column>

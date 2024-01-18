@@ -14,10 +14,6 @@ function Header() {
         <Link to="/about" className="item">
           About
         </Link>
-
-        <Link to="/contact" className="item">
-          Contact
-        </Link>
         {Auth.loggedIn() ? (
           <>
             <Dropdown item text="Cart">

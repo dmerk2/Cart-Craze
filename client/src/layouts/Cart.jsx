@@ -20,9 +20,7 @@ function Cart() {
   useEffect(() => {
     try {
       const storedData = JSON.parse(localStorage.getItem("cart-craze"));
-      console.log("Parsed storedData:", storedData);
       if (storedData) {
-        console.log("Dispatch updateCartFromLocalStorage");
         dispatch(updateCartFromLocalStorage(storedData));
       }
     } catch (error) {
@@ -31,7 +29,6 @@ function Cart() {
   }, [dispatch]);
 
   useEffect(() => {
-    console.log("Updating localStorage", cart);
     localStorage.setItem("cart-craze", JSON.stringify(cart));
   }, [cart]);
 
@@ -42,30 +39,36 @@ function Cart() {
         <Grid.Row centered>
           <Grid.Column width={10}>
             <Container className="cartContainer">
-              {cart.map((item) => (
-                <Card.Group key={item.id}>
-                  <Card>
-                    <Image
-                      src={item.image}
-                      alt={item.image}
-                      wrapped
-                      ui={false}
-                    />
-                    <Card.Content>
-                      <h3>{item.name}</h3>
-                      <Card.Description>{item.description}</Card.Description>
-                      <Card.Meta>Price: ${item.price}</Card.Meta>
-                      <Card.Meta>Quantity: {item.quantity}</Card.Meta>
-                    </Card.Content>
-                    <Button
-                      className="removeItem"
-                      onClick={() => handleRemoveItem(item.id)}
-                    >
-                      Remove
-                    </Button>
-                  </Card>
-                </Card.Group>
-              ))}
+              {cart.length === 0 ? (
+                <>
+                  <h3>No items in your cart</h3>
+                </>
+              ) : (
+                cart.map((item) => (
+                  <Card.Group key={item.id}>
+                    <Card>
+                      <Image
+                        src={item.image}
+                        alt={item.image}
+                        wrapped
+                        ui={false}
+                      />
+                      <Card.Content>
+                        <h3>{item.name}</h3>
+                        <Card.Description>{item.description}</Card.Description>
+                        <Card.Meta>Price: ${item.price}</Card.Meta>
+                        <Card.Meta>Quantity: {item.quantity}</Card.Meta>
+                      </Card.Content>
+                      <Button
+                        className="removeItem"
+                        onClick={() => handleRemoveItem(item.id)}
+                      >
+                        Remove
+                      </Button>
+                    </Card>
+                  </Card.Group>
+                ))
+              )}
             </Container>
           </Grid.Column>
           <Grid.Column width={4}>
