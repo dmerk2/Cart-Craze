@@ -5,7 +5,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./layouts/Home.jsx";
 import About from "./layouts/About.jsx";
 import Cart from "./layouts/Cart.jsx";
-import Contact from "./layouts/Contact.jsx";
 import Login from "./layouts/Login.jsx";
 import Signup from "./layouts/Signup.jsx";
 import Error from "./layouts/Error.jsx";
@@ -16,8 +15,8 @@ import Category from "./layouts/Category.jsx";
 import { Provider } from "react-redux";
 import store from "./utils/store.js";
 
-// const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-// console.log(clientId);
+const clientId = import.meta.env.REACT_APP_GOOGLE_CLIENT_ID;
+console.log(clientId);
 
 const router = createBrowserRouter([
   {
@@ -40,10 +39,6 @@ const router = createBrowserRouter([
       {
         path: "/cart",
         element: <Cart />,
-      },
-      {
-        path: "/contact",
-        element: <Contact />,
       },
       {
         path: "/orders",
@@ -72,7 +67,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
-      <GoogleOAuthProvider clientId="">
+      <GoogleOAuthProvider clientId={clientId}>
         <RouterProvider router={router} />
       </GoogleOAuthProvider>
     </Provider>
